@@ -1,57 +1,3 @@
-create DATABASE db_TechAcademyLMS
-USE db_TechAcademyLMS
-
-
-	--==MEMBERS-
-	CREATE TABLE MEMBERS (
-		cardNum INT PRIMARY KEY NOT NULL ,
-		fName VARCHAR(50)  NOT NULL ,
-		lName VARCHAR(50)  NOT NULL ,
-		mAddress VARCHAR(75)  NOT NULL ,
-		mPhone VARCHAR(50)  NOT NULL 
-	);
-	--==BRANCH-
-	CREATE TABLE BRANCH (
-		branchID INT PRIMARY KEY NOT NULL ,
-		branchName VARCHAR(75)  NOT NULL ,
-		branchAddress VARCHAR(75)  NOT NULL 
-	);
-	--==PUBLISHERS- 
-	CREATE TABLE PUBLISHERS (
-		publisherName VARCHAR(75) PRIMARY KEY NOT NULL ,
-		publisherAddress VARCHAR(75)  NOT NULL ,
-		publisherPhone VARCHAR(20)  NOT NULL 
-	);
-	--==AUTHORS-
-	CREATE TABLE AUTHORS (
-		authorID INT IDENTITY (1,1)  NOT NULL ,
-		authorName VARCHAR(75) PRIMARY KEY NOT NULL 
-	);
-	--==BOOKS-
-	CREATE TABLE BOOKS (
-		bookID INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-		title VARCHAR(75)  NOT NULL ,
-		publisherName VARCHAR(75) CONSTRAINT fk_book_publisherName FOREIGN KEY REFERENCES PUBLISHERS(publisherName) ON UPDATE CASCADE ON DELETE CASCADE,
-		authorName VARCHAR(75) CONSTRAINT fk_book_authorName FOREIGN KEY REFERENCES AUTHORS(authorName) ON UPDATE CASCADE ON DELETE CASCADE
-	);
-	--==BOOKLOANS-
-	CREATE TABLE BOOKLOANS (
-		branchID INT  NOT NULL FOREIGN KEY REFERENCES BRANCH(branchID),
-		bookID INT  NOT NULL FOREIGN KEY REFERENCES BOOKS(bookID),
-		dateFrom date  NOT NULL ,
-		dateDue date  NOT NULL ,
-		cardNum INT  NOT NULL FOREIGN KEY REFERENCES MEMBERS(cardNum)
-	);
-	--==COPIES-
-	CREATE TABLE COPIES (
-		bookID INT NOT NULL CONSTRAINT fk_bookid_copies FOREIGN KEY REFERENCES BOOKS(bookID) ON UPDATE CASCADE ON DELETE CASCADE,
-		branchID INT NOT NULL CONSTRAINT fk_branchid FOREIGN KEY REFERENCES BRANCH(branchID) ON UPDATE CASCADE ON DELETE CASCADE,
-		numOfCopies VARCHAR(20)  NOT NULL 
-	);
-	
-
-	--==POPULATE TABLES
-	
 	
 
 	INSERT INTO AUTHORS 
@@ -161,41 +107,41 @@ USE db_TechAcademyLMS
 	INSERT INTO COPIES 
 		(bookID, branchID, numOfCopies)
 		VALUES
-		(1,	98050,	'1 of 3'),
-		(1,	98057,	'2 of 3'),
-		(1,	98050,	'3 of 3'),
-		(2,	98052,	'1 of 3'),
-		(2,	98050,	'2 of 3'),
-		(2,	77036,	'3 of 3'),
-		(3,	98052,	'1 of 2'),
-		(3,	98052,	'2 of 2'),
-		(4,	98050,	'1 of 5'),
-		(4,	98057,	'2 of 5'),
-		(4,	77036,	'3 of 5'),
-		(4,	77036,	'4 of 5'),
-		(4,	98057,	'5 of 5'),
-		(5,	98057,	'1 of 2'),
-		(5,	98057,	'2 of 2'),
-		(6,	98052,	'1 of 2'),
-		(6,	98104,	'2 of 2'),
-		(7,	98050,	'1 of 2'),
-		(7,	98052,	'2 of 2'),
-		(8,	98057,	'1 of 3'),
-		(8,	77036,	'2 of 3'),
-		(8,	98057,	'3 of 3'),
-		(9,	77036,	'2 of 2'),
-		(9,	98057,	'2 of 2'),
+		(1,		98050,	'1 of 3'),
+		(1,		98057,	'2 of 3'),
+		(1,		98050,	'3 of 3'),
+		(2,		98052,	'1 of 3'),
+		(2,		98050,	'2 of 3'),
+		(2,		77036,	'3 of 3'),
+		(3,		98052,	'1 of 2'),
+		(3,		98052,	'2 of 2'),
+		(4,		98050,	'1 of 5'),
+		(4,		98057,	'2 of 5'),
+		(4,		77036,	'3 of 5'),
+		(4,		77036,	'4 of 5'),
+		(4,		98057,	'5 of 5'),
+		(5,		98057,	'1 of 2'),
+		(5,		98057,	'2 of 2'),
+		(6,		98052,	'1 of 2'),
+		(6,		98104,	'2 of 2'),
+		(7,		98050,	'1 of 2'),
+		(7,		98052,	'2 of 2'),
+		(8,		98057,	'1 of 3'),
+		(8,		77036,	'2 of 3'),
+		(8,		98057,	'3 of 3'),
+		(9,		77036,	'2 of 2'),
+		(9,		98057,	'2 of 2'),
 		(10,	98188,	'1 of 3'),
 		(10,	98050,	'2 of 3'),
 		(10,	98050,	'3 of 3'),
 		(11,	98052,	'1 of 3'),
 		(11,	98057,	'2 of 3'),
 		(11,	98050,	'3 of 3'),
-		(12,	98050,	'1 of 3'),
-		(12,	98188,	'2 of 3'),
+		(12,	98104,	'1 of 3'),
+		(12,	98104,	'2 of 3'),
 		(12,	98188,	'3 of 3'),
 		(13,	98188,	'1 of 5'),
-		(13,	77036,	'2 of 5'),
+		(13,	98104,	'2 of 5'),
 		(13,	77036,	'3 of 5'),
 		(13,	77036,	'4 of 5'),
 		(13,	98052,	'5 of 5'),
@@ -278,16 +224,3 @@ USE db_TechAcademyLMS
 	;
 
 	
-		SELECT * FROM AUTHORS
-	
-		SELECT * FROM BOOKS
-		
-		SELECT * FROM BOOKLOANS
-		
-		SELECT * FROM COPIES
-		
-		SELECT * FROM BRANCH
-		
-		SELECT * FROM MEMBERS
-
-		SELECT * FROM PUBLISHERS
